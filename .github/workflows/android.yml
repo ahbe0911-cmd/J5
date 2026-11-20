@@ -14,6 +14,11 @@ jobs:
       - uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: '8.10.2'
+      - name: Install Vazir font (OFL)
+        run: |
+          mkdir -p app/src/main/assets
+          curl -fL --retry 3 --connect-timeout 15 https://raw.githubusercontent.com/Amirhv/vazir-font/master/dist/Vazir-Regular.ttf -o app/src/main/assets/vazir.ttf
+          test -s app/src/main/assets/vazir.ttf
       - name: Build debug APK
         run: gradle :app:assembleDebug --no-daemon
       - uses: actions/upload-artifact@v4
