@@ -14,7 +14,7 @@ public class MainActivity extends Activity{
  @Override public void onCreate(Bundle b){super.onCreate(b);try{vazir=Typeface.createFromAsset(getAssets(),"vazir.ttf");}catch(Exception ignored){}int[] today=Jalali.fromGregorian(LocalDate.now(ZoneId.of("Asia/Tehran")));year=today[0];month=today[1];day=today[2];getWindow().setStatusBarColor(bg);getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);draw();loadHolidays();}
  void loadHolidays(){int y=year,m=month;Holidays.loadMonth(this,y,m,()->{if(year==y&&month==m)renderCalendar();});}
  void draw(){root=vertical();root.setBackgroundColor(bg);pad(root,16,20,16,0);root.setFitsSystemWindows(true);setContentView(root);
- LinearLayout brand=horizontal();brand.setBackground(shape(0xFFE9F0FF,18));pad(brand,14,10,14,10);root.addView(brand);TextView eyebrow=text("✦  برنامه‌ریز من",15,accent,true);brand.addView(eyebrow,new LinearLayout.LayoutParams(0,dp(32),1));TextView badge=text("۱۴۰۵  •  تقویم فارسی",12,navy,true);brand.addView(badge);
+ LinearLayout brand=horizontal();brand.setBackground(shape(0xFFE9F0FF,18));pad(brand,14,10,14,10);root.addView(brand);TextView eyebrow=text("✦  برنامه‌ریز من",15,accent,true);brand.addView(eyebrow,new LinearLayout.LayoutParams(0,dp(32),1));TextView badge=text("تقویم فارسی  •  "+year,12,navy,true);brand.addView(badge);
  TextView heading=text("هر روز، یک شروع تازه",25,navy,true);pad(heading,0,18,0,16);root.addView(heading);
  LinearLayout card=vertical();card.setBackground(shape(white,24));pad(card,10,12,10,12);card.setElevation(dp(6));root.addView(card);
  LinearLayout nav=horizontal();card.addView(nav);
