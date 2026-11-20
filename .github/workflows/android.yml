@@ -19,6 +19,11 @@ jobs:
           mkdir -p app/src/main/assets
           curl -fL --retry 3 --connect-timeout 15 https://raw.githubusercontent.com/Amirhv/vazir-font/master/dist/Vazir-Regular.ttf -o app/src/main/assets/vazir.ttf
           test -s app/src/main/assets/vazir.ttf
+          mkdir -p app/src/main/res/font
+          curl -fL --retry 3 https://raw.githubusercontent.com/rastikerdar/vazirmatn/master/fonts/ttf/Vazirmatn-Regular.ttf -o app/src/main/res/font/vazirmatn_regular.ttf
+          curl -fL --retry 3 https://raw.githubusercontent.com/rastikerdar/vazirmatn/master/fonts/ttf/Vazirmatn-Bold.ttf -o app/src/main/res/font/vazirmatn_bold.ttf
+          test -s app/src/main/res/font/vazirmatn_regular.ttf
+          test -s app/src/main/res/font/vazirmatn_bold.ttf
       - name: Build debug APK
         run: gradle :app:assembleDebug --no-daemon
       - uses: actions/upload-artifact@v4
