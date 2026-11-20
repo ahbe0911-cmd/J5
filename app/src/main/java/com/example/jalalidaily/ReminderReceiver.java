@@ -1,0 +1,3 @@
+package com.example.jalalidaily;
+import android.app.*;import android.content.*;
+public class ReminderReceiver extends BroadcastReceiver{@Override public void onReceive(Context c,Intent i){NotificationManager m=(NotificationManager)c.getSystemService(Context.NOTIFICATION_SERVICE);m.createNotificationChannel(new NotificationChannel("notes","یادآوری‌ها",NotificationManager.IMPORTANCE_DEFAULT));Notification n=new Notification.Builder(c,"notes").setSmallIcon(android.R.drawable.ic_dialog_info).setContentTitle(i.getStringExtra("title")).setContentText(i.getStringExtra("body")).setAutoCancel(true).build();try{m.notify(i.getIntExtra("id",1),n);}catch(SecurityException ignored){}}}
