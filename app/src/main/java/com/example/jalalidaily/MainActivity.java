@@ -13,7 +13,7 @@ public class MainActivity extends Activity{
  String key(){return Jalali.key(new int[]{year,month,day});}
  @Override public void onCreate(Bundle b){super.onCreate(b);try{vazir=Typeface.createFromAsset(getAssets(),"vazir.ttf");}catch(Exception ignored){}int[] today=Jalali.fromGregorian(LocalDate.now(ZoneId.of("Asia/Tehran")));year=today[0];month=today[1];day=today[2];getWindow().setStatusBarColor(bg);getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);draw();loadHolidays();}
  void loadHolidays(){int y=year,m=month;Holidays.loadMonth(this,y,m,()->{if(year==y&&month==m)renderCalendar();});}
- void draw(){root=vertical();root.setBackgroundColor(bg);pad(root,16,20,16,0);root.setFitsSystemWindows(true);setContentView(root);
+ void draw(){root=vertical();root.setBackgroundColor(bg);pad(root,16,20,16,0);ScrollView page=new ScrollView(this);page.setFillViewport(true);page.setClipToPadding(false);page.setFitsSystemWindows(true);page.addView(root);setContentView(page);
  LinearLayout brand=horizontal();brand.setBackground(shape(0xFFE9F0FF,18));pad(brand,14,10,14,10);root.addView(brand);TextView eyebrow=text("✦  برنامه‌ریز من",15,accent,true);brand.addView(eyebrow,new LinearLayout.LayoutParams(0,dp(32),1));TextView badge=text("تقویم فارسی  •  "+year,12,navy,true);brand.addView(badge);
  TextView heading=text("هر روز، یک شروع تازه",25,navy,true);pad(heading,0,18,0,16);root.addView(heading);
  LinearLayout card=vertical();card.setBackground(shape(white,24));pad(card,10,12,10,12);card.setElevation(dp(6));root.addView(card);
@@ -24,7 +24,7 @@ public class MainActivity extends Activity{
  grid=vertical();card.addView(grid);
  LinearLayout legend=horizontal();pad(legend,6,18,6,2);card.addView(legend);TextView legendText=text("🔴 تعطیل رسمی       🔵 دارای برنامه       ◯ امروز",11,muted,false);legend.addView(legendText);
  LinearLayout title=horizontal();pad(title,0,20,0,12);root.addView(title);TextView label=text("برنامه‌های این روز",17,navy,true);title.addView(label,new LinearLayout.LayoutParams(0,-2,1));TextView plus=text("＋ افزودن کار",14,accent,true);pad(plus,12,10,12,10);plus.setBackground(shape(0xFFEAF0FF,12));LinearLayout.LayoutParams addParams=new LinearLayout.LayoutParams(-2,-2);addParams.setMargins(dp(12),0,0,0);title.addView(plus,addParams);plus.setOnClickListener(v->showDay());
- ScrollView scroll=new ScrollView(this);summary=vertical();scroll.addView(summary);root.addView(scroll,new LinearLayout.LayoutParams(-1,0,1));
+ ScrollView scroll=new ScrollView(this);summary=vertical();scroll.addView(summary);root.addView(scroll,new LinearLayout.LayoutParams(-1,-2));scroll.setMinimumHeight(dp(112));scroll.setFillViewport(false);
  TextView footer=text("برای ثبت چند کار، روز موردنظر را لمس کنید",12,muted,false);footer.setGravity(Gravity.CENTER);pad(footer,0,12,0,22);root.addView(footer);
  renderCalendar();renderSummary();}
  void move(int d){month+=d;if(month>12){month=1;year++;}if(month<1){month=12;year--;}day=Math.min(day,Jalali.daysInMonth(year,month));renderCalendar();renderSummary();loadHolidays();}
